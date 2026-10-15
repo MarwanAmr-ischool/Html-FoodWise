@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodWise - Your Smart Kitchen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="nav">
+    <div class="brand"><span class="logo">✳</span> FoodWise</div>
+    <div class="navright">🟢 LOCAL MODE　 SMART KITCHEN</div>
+</nav>
+
+<main class="wrap">
+
+    <section class="hero">
+        <div class="hero-main">
+            <small>YOUR KITCHEN, MADE SMARTER</small>
+            <h1>Waste less.<br>Save more.</h1>
+            <p>Know what you own, use food in time, plan meals and stop buying duplicates.</p>
+            <span class="hero-art">🥑</span>
+        </div>
+        <div class="hero-side">
+            <div>
+                <small>TODAY'S MISSION</small>
+                <h2>Shop your kitchen first.</h2>
+                <p>Use what you have before buying more. Every item saved is money kept in your pocket.</p>
+            </div>
+            <div class="emojis">🥕 🍋 🥦</div>
+        </div>
+    </section>
+
+    <div class="tabs">
+        <button class="tab active" data-page="dashboard">Overview</button>
+        <button class="tab" data-page="inventory">Food inventory</button>
+        <button class="tab" data-page="meals">Meal planner</button>
+        <button class="tab" data-page="shopping">Shopping list</button>
+        <button class="tab" data-page="budget">Budget & impact</button>
+    </div>
+
+    <section id="dashboard" class="page active">
+        <div class="stats">
+            <div class="stat"><p>Food items tracked</p><h2 id="statTotal">0</h2><small>Know what you own</small></div>
+            <div class="stat"><p>Use soon</p><h2 id="statUrgent">0</h2><small>Prioritise these items</small></div>
+            <div class="stat"><p>Food value tracked</p><h2 id="statValue">AED 0</h2><small>Inventory value</small></div>
+            <div class="stat"><p>Shopping list</p><h2 id="statShop">0</h2><small>Items to remember</small></div>
+        </div>
+
+        <div class="columns">
+            <div class="panel">
+                <h2>Add food to your kitchen</h2>
+                <p class="sub">Keep an accurate inventory.</p>
+
+                <form id="foodForm">
+                    <label for="foodName">Food name</label>
+                    <input id="foodName" placeholder="e.g. Strawberries" maxlength="45" required>
+
+                    <div class="formgrid">
+                        <div><label for="category">Category</label>
+                            <select id="category">
+                                <option>Fruit</option><option>Vegetable</option>
+                                <option>Dairy</option><option>Meat / Fish</option>
+                                <option>Bakery</option><option>Grains</option><option>Other</option>
+                            </select>
+                        </div>
+                        <div><label for="expiry">Use-by date</label><input id="expiry" type="date" required></div>
+                        <div><label for="price">Value (AED)</label><input id="price" type="number" min="0" max="10000" step=".5" placeholder="10"></div>
+                        <div><label for="quantity">Quantity</label><input id="quantity" maxlength="30" placeholder="e.g. 1 box"></div>
+                    </div>
+
+                    <button class="primary">+ Add to inventory</button>
+                </form>
+
+                <div class="tip">💡 <div><b>Smart priority</b><p id="priorityTip">Add items to see what to use first.</p></div></div>
+            </div>
+
+            <div class="panel">
+                <div class="heading">
+                    <div><h2>Use these first</h2><p class="sub">Items sorted by expiry date.</p></div>
+                    <button class="secondary" id="demoBtn">Load demo</button>
+                </div>
+                <div id="priorityList" class="food-list"></div>
+                <div class="idea">
+                    <small>✦ SMART MEAL IDEA</small>
+                    <h3 id="ideaTitle">Build a meal from your ingredients</h3>
+                    <p id="ideaText">Your suggestions will update when you add food.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="inventory" class="page">
+        <div class="panel">
+            <div class="heading">
+                <div><h2>Food inventory</h2><p class="sub">Search and manage your kitchen.</p></div>
+                <span class="pill" id="inventoryCount">0 ITEMS</span>
+            </div>
+            <input id="searchFood" placeholder="Search by food name or category...">
+            <div id="allFoods" class="food-list"></div>
+        </div>
+    </section>
+
+    <section id="meals" class="page">
+        <div class="columns">
+            <div class="panel">
+                <h2>Use what you have</h2>
+                <p class="sub">Meal ideas based on your ingredients.</p>
+                <div id="mealIdeas"></div>
+            </div>
+            <div class="panel">
+                <h2>Meal-planning method</h2>
+                <p class="sub">A simple system to cut waste.</p>
+                <div class="step">1. Use ingredients that expire soon first.</div>
+                <div class="step">2. Pick meals using ingredients you own.</div>
+                <div class="step">3. Add missing ingredients to your shopping list.</div>
+                <div class="step">4. Update your inventory after using food.</div>
+                <div class="tip">Safety note: These are meal ideas, not a check that food is safe. Follow storage instructions and discard food when in doubt.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="shopping" class="page">
+        <div class="columns">
+            <div class="panel">
+                <h2>Shopping list</h2>
+                <p class="sub">Remember what you actually need.</p>
+                <span class="pill" id="shopCount">0 ITEMS</span>
+
+                <form id="shopForm" class="shopform">
+                    <input id="shopName" placeholder="Add a shopping item..." maxlength="60" required>
+                    <button class="primary">Add</button>
+                </form>
+                <div id="shoppingItems"></div>
+                <button class="secondary" id="clearChecked">Remove checked items</button>
+            </div>
+            <div class="panel">
+                <h2>Smart shopping rule</h2>
+                <p class="sub">Avoid buying food you already have.</p>
+                <div class="idea">
+                    <small>BEFORE YOU BUY</small>
+                    <h3>Check your inventory.</h3>
+                    <p>Search your food list first. If you already have it, use it instead of buying another one.</p>
+                </div>
+                <div id="duplicateTip" class="tip">Add food to get duplicate-buying reminders.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="budget" class="page">
+        <div class="columns">
+            <div class="panel">
+                <h2>Budget snapshot</h2>
+                <p class="sub">Track food value and spending.</p>
+                <div class="money"><span>Inventory value</span><b id="budgetInventory">AED 0</b></div>
+                <div class="money"><span>Shopping list estimate</span><b id="budgetShopping">AED 0</b></div>
+
+                <label for="monthlyBudget">Monthly food budget (AED)</label>
+                <input id="monthlyBudget" type="number" min="0" placeholder="e.g. 1200">
+
+                <div class="money"><span>Budget target</span><b id="budgetTarget">Not set</b></div>
+                <div id="budgetTip" class="tip">Set a budget to compare planned shopping with your target.</div>
+            </div>
+            <div class="panel">
+                <h2>Waste-reduction impact</h2>
+                <p class="sub">Estimates, not measured environmental claims.</p>
+                <div class="money"><span>Items tracked</span><b id="impactItems">0</b></div>
+                <div class="money"><span>Items expiring in 3 days</span><b id="impactSoon">0</b></div>
+                <div class="money"><span>Value to prioritise</span><b id="impactValue">AED 0</b></div>
+                <div class="progress"><div id="impactBar" class="bar"></div></div>
+                <p class="sub">FoodWise helps you use food before it is forgotten. It does not calculate exact carbon emissions.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>FoodWise • Student project • Local storage only • Meal ideas are not food-safety advice.</footer>
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="script.js"></script>
+</body>
+</html>
